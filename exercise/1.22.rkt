@@ -23,6 +23,8 @@
     (display " *** ")
     (display elapsed-time))
 
+(timed-prime-test 1000000021)
+
 (define (next-odd n)
     (if (odd? n)
         (+ 2 n)
