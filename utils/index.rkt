@@ -3,7 +3,8 @@
 (provide
     sq
     cube
-    fast-expt)
+    fast-expt
+    prime?)
     
 ; (define <= (lambda (a b) (or (= a b) (< a b))))
 (define (sq x) (* x x))
@@ -14,3 +15,17 @@
             (sq (fast-expt base (/ exp 2))))
         (else
             (* base (fast-expt base (- exp 1))))))
+
+(define (smallest-divisor n)
+    (find-divisor n 2))
+(define (find-divisor n test-divisor)
+    (cond ((> (sq test-divisor) n) n)
+        ((divides? n test-divisor) test-divisor)
+        (else (find-divisor n (next test-divisor)))))
+(define (divides? a b) (= (remainder a b) 0))
+(define (prime? n)
+    (= (smallest-divisor n) n))
+(define (next test-divisor)
+    (if (= test-divisor 2)
+        3
+        (+ test-divisor 2)))
