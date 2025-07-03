@@ -2,16 +2,6 @@
 (require sicp)
 (require "../utils/index.rkt")
 
-; (define (cont-frac n d k)
-;     (if (= k 0)
-;         (/ (n k) (d k))
-;         (/ (n k) (+ (d k) (cont-frac n d (- k 1))))))
-
-; (cont-frac
-;     (lambda (i) 1.0)
-;     (lambda (i) 1.0)
-;     8)
-
 (define (cont-frac n d k)
     (define (iter i res)
         (if (= i 0)
@@ -21,7 +11,14 @@
                     (+ (d i) res)))))
     (iter k 0.0))
 
+; i 从 1 开始
+(define (d i)
+    (if (= (remainder i 3) 2)
+        (* 2 (/ (+ i 1) 3))
+        1))
+
 (cont-frac
     (lambda (i) 1.0)
-    (lambda (i) 1.0)
-    11)
+    d
+    100)
+
