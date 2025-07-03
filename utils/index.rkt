@@ -6,6 +6,10 @@
     fast-expt
     prime?
     newton-method
+    fixed-point
+    fixed-point-of-transform
+    pow
+    average-damp
 )
     
 ; (define <= (lambda (a b) (or (= a b) (< a b))))
@@ -43,6 +47,8 @@
             guess
             (iter (improve-guess guess))))
     (iter guess))
+(define (fixed-point-of-transform g transform guess)
+    (fixed-point (transform g) guess))
 
 (define dx 0.00001)
 (define (deriv g)
@@ -53,3 +59,11 @@
 
 (define (newton-method g guess)
     (fixed-point (newton-transform g) guess))
+
+(define (pow base n)
+    (if (= n 1) base
+        (* base (pow base (- n 1)))))
+
+(define (average-damp f)
+    (lambda (x)
+        (/ (+ x (f x)) 2)))
