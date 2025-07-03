@@ -4,7 +4,9 @@
     sq
     cube
     fast-expt
-    prime?)
+    prime?
+    newton-method
+)
     
 ; (define <= (lambda (a b) (or (= a b) (< a b))))
 (define (sq x) (* x x))
@@ -29,3 +31,25 @@
     (if (= test-divisor 2)
         3
         (+ test-divisor 2)))
+
+(define tolerance 0.00001)
+(define (fixed-point f guess)
+    (define (close-enough? a b)
+        (< (abs (- a b)) tolerance))
+    (define (improve-guess guess)
+        (/ (+ guess (f guess)) 2))
+    (define (iter guess)
+        (if (close-enough? guess (improve-guess guess))
+            guess
+            (iter (improve-guess guess))))
+    (iter guess))
+
+(define dx 0.00001)
+(define (deriv g)
+    (lambda (x) (/ (- (g (+ x dx)) (g x)) dx)))
+
+(define (newton-transform g)
+    (lambda (x) (- x (/ (g x) ((deriv g) x)))))
+
+(define (newton-method g guess)
+    (fixed-point (newton-transform g) guess))
