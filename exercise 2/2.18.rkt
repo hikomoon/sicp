@@ -3,13 +3,18 @@
 (require "../utils/index.rkt")
 
 
+; (define (reverse items)
+;     (define (iter i r)
+;         (if (null? i)
+;             r
+;             (iter (cdr i)
+;                 (cons (car i) r))))
+;     (iter items '()))
+
 (define (reverse items)
-    (define (iter i r)
-        (if (null? i)
-            r
-            (iter (cdr i)
-                (cons (car i) r))))
-    (iter items '()))
+  (if (null? items)
+      '()
+      (append (reverse (cdr items)) (list (car items)))))
 
 
 (define n (reverse (list 1 2 3 4 5 6)))
