@@ -1,4 +1,5 @@
 #lang racket
+(require sicp)
 
 (provide
     sq
@@ -10,6 +11,7 @@
     fixed-point-of-transform
     pow
     average-damp
+    accumulate
 )
     
 ; (define <= (lambda (a b) (or (= a b) (< a b))))
@@ -67,3 +69,12 @@
 (define (average-damp f)
     (lambda (x)
         (/ (+ x (f x)) 2)))
+
+
+; seq operations
+
+(define (accumulate op initial seq)
+    (if (null? seq)
+        initial
+        (op (car seq)
+            (accumulate op initial (cdr seq)))))
