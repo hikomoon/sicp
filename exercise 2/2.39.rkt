@@ -16,7 +16,11 @@
 (define (reverse-v1 seq)
     (fold-left (lambda (x y) (cons y x)) nil seq))
 
+(define (reverse-v2 seq)
+    (fold-left (lambda (x y) (append (list y) x)) nil seq))
+
 (define l (list 1 2 3 4 5 6))
 
 (display (reverse l))
 (display (reverse-v1 l))
+(display (reverse-v2 l))
