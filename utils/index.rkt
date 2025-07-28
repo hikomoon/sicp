@@ -12,6 +12,7 @@
     pow
     average-damp
     accumulate
+    subsets
 )
     
 ; (define <= (lambda (a b) (or (= a b) (< a b))))
@@ -78,3 +79,12 @@
         initial
         (op (car seq)
             (accumulate op initial (cdr seq)))))
+
+
+(define (subsets s)
+    (if (null? s)
+        (list nil)
+        (let ((rest (subsets (cdr s))))
+            (append rest (map
+                (lambda (sub-s) 
+                    (append (list (car s)) sub-s)) rest)))))
