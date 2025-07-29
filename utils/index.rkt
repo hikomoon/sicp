@@ -11,7 +11,7 @@
     fixed-point-of-transform
     pow
     average-damp
-    accumulate
+    ; list
     subsets
 )
     
@@ -73,13 +73,6 @@
 
 
 ; seq operations
-
-(define (accumulate op initial seq)
-    (if (null? seq)
-        initial
-        (op (car seq)
-            (accumulate op initial (cdr seq)))))
-
 
 (define (subsets s)
     (if (null? s)

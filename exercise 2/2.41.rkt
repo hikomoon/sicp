@@ -27,5 +27,14 @@
         (append (map (lambda (p) (append (list n) p)) (unique-pairs (- n 1)))
             (unique-triples (- n 1)))))
 
-(display (unique-triples 5))
+(define (unique-triples-v1 n)
+    (flatmap (lambda (i) (if (= i 3) (list (list 1 2 3))
+        (map (lambda (j) (cons i j)) (unique-pairs (- i 1)))))
+            (enumerate-interval 3 n)))
+
+(length (unique-triples 7))
+(display (unique-triples-v1 7))
+(length (unique-triples-v1 7))
+(newline)
+
     
